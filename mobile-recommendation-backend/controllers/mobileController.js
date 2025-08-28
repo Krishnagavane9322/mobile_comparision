@@ -42,6 +42,19 @@ exports.getMobiles = async (req, res) => {
   }
 };
 
+// GET /api/mobiles/:id
+exports.getMobileById = async (req, res) => {
+  try {
+    const mobile = await Mobile.findById(req.params.id);
+    if (!mobile) {
+      return res.status(404).json({ error: 'Mobile not found' });
+    }
+    res.json(mobile);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 // POST /api/mobiles (admin add)
 exports.addMobile = async (req, res) => {
   try {
